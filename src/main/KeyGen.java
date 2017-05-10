@@ -18,7 +18,6 @@ public class KeyGen {
 	private final String PRIVATE_FILE_NAME = "privkey.rsa";
 
 	public boolean retrieveKeys(){
-
 		return inputFromFile();
 	}
 
@@ -33,14 +32,12 @@ public class KeyGen {
 
 		//Pick e to be a random prime between 1 and ø(n), such that gcd(e, ø(n)) = . e 
 		//Calculate  d = e-1 mod ø(n)  
-		while(!(e = new BigInteger(BIT_SIZE, rand)).gcd(totient_n).equals(one)){
-			
-		}
+		while(!(e = new BigInteger(BIT_SIZE, rand)).gcd(totient_n).equals(one)){}
 		
 		try{
 		d = e.modInverse(totient_n);
 		} catch(Exception e){
-			
+			System.out.println(e.toString());
 		}
 		System.out.println("p =    " + p + "\n" +
 				"q =    " + q + "\n" +
@@ -136,5 +133,9 @@ public class KeyGen {
 		}
 		
 		return output.toString();
+	}
+	
+	public BigInteger getE(){
+		return e;
 	}
 }
