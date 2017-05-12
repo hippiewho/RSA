@@ -28,10 +28,10 @@ public class KeyGen {
 		one = new BigInteger("1");
 		n = p.multiply(q);
 
-		totient_n = p.subtract(new BigInteger("1").multiply(q.subtract(new BigInteger("1"))));
+		totient_n = p.subtract(new BigInteger("1")).multiply(q.subtract(new BigInteger("1")));
 
-		//Pick e to be a random prime between 1 and ø(n), such that gcd(e, ø(n)) = . e 
-		//Calculate  d = e-1 mod ø(n)  
+		//Pick e to be a random prime between 1 and ï¿½(n), such that gcd(e, ï¿½(n)) = . e 
+		//Calculate  d = e-1 mod ï¿½(n)  
 		while(!(e = new BigInteger(BIT_SIZE, rand)).gcd(totient_n).equals(one)){}
 		
 		try{
@@ -137,5 +137,13 @@ public class KeyGen {
 	
 	public BigInteger getE(){
 		return e;
+	}
+	
+	public BigInteger getN() {
+		return n;
+	}
+	
+	public BigInteger getD() {
+		return d;
 	}
 }
