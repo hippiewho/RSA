@@ -1,10 +1,11 @@
 package main;
 
+import java.io.IOException;
 import java.util.Scanner;
 
 public class driver {
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws IOException {
 		DigitalSignature ds;
 		Scanner sc = new Scanner(System.in);
 
@@ -24,6 +25,9 @@ public class driver {
 					ds = new DigitalSignature(sc);
 					ds.readFile();
 					break;
+				case 4:
+					ChangeByte.corrupt(sc);
+					break;
 				case 0:
 					sc.close();
 					return;
@@ -40,6 +44,7 @@ public class driver {
 						   "Press 1 to generate keys.\n" +
 						   "Press 2 to Prepare Message to send.\n" +
 						   "Press 3 to Read Message.\n" +
+						   "Press 4 to Corrupt Message.\n" +
 						   "Press 0 to close.");
 	}
 	

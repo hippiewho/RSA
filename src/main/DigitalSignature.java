@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.OptionalDataException;
+import java.io.StreamCorruptedException;
 import java.math.BigInteger;
 import java.security.*;
 import java.util.Scanner;
@@ -15,7 +16,7 @@ import java.util.Scanner;
 public class DigitalSignature {
 	String FILE_NAME ;
 	String SIGNED_FILE_NAME;
-	boolean DEBUG = true;
+	boolean DEBUG = false;
 	
 	public DigitalSignature(Scanner scanner){
 		System.out.println("Enter File Name: (If reading file please do not enter \".signed\")");
@@ -69,9 +70,7 @@ public class DigitalSignature {
 			OOS.writeObject(signed);
 			OOS.writeObject(new BigInteger(b));
 			
-			// Close all open I/O 
-//			fis.close();
-//			fos.close();
+			// Close open I/O 
 			OOS.close();
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
@@ -115,9 +114,9 @@ public class DigitalSignature {
 			System.out.println("DM mod n = " + DigestedMessage.mod(kg.getN()));
 
 			if(messageSigned.equals(DigestedMessage.mod(kg.getN()))){
-				System.out.println("File is not tampered");
+				System.out.println("File has not been tampered with.\nMessage: " + new String(message.toByteArray()));
 			} else {
-				System.out.println("File has been tampered");
+				System.out.println("File has been tampered.");
 			}
 			// Close all open I/O 
 			ois.close();
@@ -126,9 +125,10 @@ public class DigitalSignature {
 		} catch (ClassNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		} catch (StreamCorruptedException e){
+			System.out.println("**-----------Error occurred. File may have been tampered with.-----------**");
 		} catch(OptionalDataException e){
-			e.printStackTrace();
-			System.out.println(e.length + "\n"+ e.eof);
+			System.out.println("**-----------Error occurred. File may have been tampered with.-----------**");
 		} catch (IOException e){
 			e.printStackTrace();
 		} catch (NoSuchAlgorithmException e) {

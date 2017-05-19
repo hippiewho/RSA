@@ -39,12 +39,14 @@ public class KeyGen {
 		} catch(Exception e){
 			System.out.println(e.toString());
 		}
-		System.out.println("p =    " + p + "\n" +
-				"q =    " + q + "\n" +
+		System.out.println(
+				//"p =    " + p + "\n" +
+				//"q =    " + q + "\n" +
 				"n =    " + n + "\n" +
-				"(t)n = " + totient_n + "\n" +
+				//"(t)n = " + totient_n + "\n" +
 				"e =    " + e + "\n" +
-				"d =    " + d + "\n");
+				"d =    " + d + "\n"
+				);
 		return outputToFile(e, d, n);
 	}
 	
